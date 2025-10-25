@@ -1,7 +1,7 @@
 import { getTeams } from '@/lib/api';
 import TeamCard from '@/components/TeamCard';
 
-const LEAGUE_ID = "757"; // ou 757
+const LEAGUE_ID = "757";
 
 export default async function TeamsPage() {
   const teams = await getTeams(LEAGUE_ID);
@@ -10,12 +10,11 @@ export default async function TeamsPage() {
     <div className='mt-28' >
       <div className="text-center mb-20">
         
-        <h1 className="text-4xl sm:text-5xl font-extrabold uppercase tracking-wider dark:text-neutral-900 text-white" 
+        <h1 className="text-4xl sm:text-5xl font-extrabold uppercase tracking-wider text-neutral-900 dark:text-white " 
             >
           Toutes les Équipes
         </h1>
-        {/* MAJ : Ajout de text-gray-600 (mode clair) et dark:text-gray-400 (mode sombre) 
-        */}
+        
         <p className="text-gray-600 dark:text-gray-400 mt-5">Découvrez les acteurs de la ligue</p>
       </div>
       
@@ -26,7 +25,7 @@ export default async function TeamsPage() {
           ))}
         </div>
       ) : (
-        // MAJ : Stylisation du message d'erreur pour les deux modes
+        
         <p className="rounded-lg border border-gray-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-6 text-center text-gray-700 dark:text-gray-400">
           Aucune équipe trouvée.
         </p>

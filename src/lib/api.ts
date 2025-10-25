@@ -25,9 +25,9 @@ export interface Game {
 export interface Standing {
   standing_place: string;
   standing_team: string;
-  standing_P: string; // Played
-  standing_W: string; // Wins
-  standing_L: string; // Losses
+  standing_P: string; 
+  standing_W: string; 
+  standing_L: string; 
   team_key: string;
   league_key: string;
 }
@@ -38,7 +38,6 @@ export interface Player {
   player_id: string;
 }
 
-// Interface pour les détails complets d'une équipe
 export interface TeamDetails {
   team_key: string;
   team_name: string;
@@ -52,12 +51,11 @@ export async function getUpcomingGames(leagueId: string): Promise<Game[]> {
     throw new Error("API key is not defined");
   }
 
-  // Calcule les dates pour la semaine à venir
   const today = new Date();
   const sevenDaysLater = new Date();
   sevenDaysLater.setDate(today.getDate() + 7);
 
-  const fromDate = formatDate(today); // Réutilise la fonction formatDate existante
+  const fromDate = formatDate(today); 
   const toDate = formatDate(sevenDaysLater);
 
   const url = `${API_BASE_URL}?met=Fixtures&leagueId=${leagueId}&from=${fromDate}&to=${toDate}&APIkey=${API_KEY}`;
@@ -70,7 +68,6 @@ export async function getUpcomingGames(leagueId: string): Promise<Game[]> {
 
   const data = await response.json();
 
-  // On trie par date croissante pour les matchs à venir
   return (data.result || []).sort((a: Game, b: Game) =>
     new Date(a.event_date + (a.event_time ? 'T' + a.event_time : '')).getTime() -
     new Date(b.event_date + (b.event_time ? 'T' + b.event_time : '')).getTime()
@@ -83,7 +80,6 @@ export async function getTeamDetails(teamId: string): Promise<TeamDetails | null
     throw new Error("API key is not defined");
   }
 
-  // 1. On définit la plage de dates (l'année écoulée)
   const today = new Date();
   const oneYearAgo = new Date();
   oneYearAgo.setFullYear(today.getFullYear() - 1);
@@ -91,7 +87,6 @@ export async function getTeamDetails(teamId: string): Promise<TeamDetails | null
   const fromDate = formatDate(oneYearAgo);
   const toDate = formatDate(today);
 
-  // 2. On ajoute les paramètres 'from' et 'to' à l'URL de l'API
   const url = `${API_BASE_URL}?met=Fixtures&teamId=${teamId}&from=${fromDate}&to=${toDate}&APIkey=${API_KEY}`;
   
   const response = await fetch(url);
@@ -103,18 +98,15 @@ export async function getTeamDetails(teamId: string): Promise<TeamDetails | null
   const data = await response.json();
   const matches = data.result || [];
 
-  // 3. On vérifie que l'API n'a pas renvoyé d'erreur ou une liste vide
   if (matches.length === 0 || matches[0]?.param === 'from') {
     console.error("Aucun match trouvé pour cette équipe dans la plage de dates ou l'API a renvoyé une erreur.");
     return null; 
   }
 
-  // On trie les matchs pour avoir les plus récents en premier
   matches.sort((a: Game, b: Game) => new Date(b.event_date).getTime() - new Date(a.event_date).getTime());
 
   let teamDetails: TeamDetails | null = null;
 
-  // 4. On cherche le premier match qui contient les données des joueurs
   for (const match of matches) {
     const hasLineups = match.lineups && Object.keys(match.lineups).length > 0;
 
@@ -132,13 +124,12 @@ export async function getTeamDetails(teamId: string): Promise<TeamDetails | null
             team_logo: isHomeTeam ? match.event_home_team_logo : match.event_away_team_logo,
             players: players,
           };
-          break; // On a trouvé, on arrête de chercher
+          break; 
         }
       }
     }
   }
 
-  // 5. Si aucun match n'avait de joueurs, on renvoie les infos de base
   if (!teamDetails) {
     const latestMatch = matches[0];
     const isHomeTeam = latestMatch.home_team_key === teamId;

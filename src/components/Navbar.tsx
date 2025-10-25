@@ -1,4 +1,4 @@
-// src/components/Navbar.tsx
+
 "use client";
 
 import Image from "next/image";
@@ -18,12 +18,12 @@ const Navbar = () => {
 
   return (
     <div>
-      {/* Section supérieure - Header avec logo et slogan */}
-      <nav className="bg-gradient-to-t from-[#BD343B] to-black dark:from-[#8B2429] dark:to-gray-900 text-gray-300 dark:text-gray-400 shadow-md">
+      
+      <nav className="bg-gradient-to-t dark:from-[#BD343B] dark:to-black from-[#8B2429] to-gray-900 dark:text-gray-300 text-white shadow-md">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Version Desktop et Tablette */}
+          
           <div className="hidden md:flex justify-between items-center h-48 lg:h-72">
-            {/* Logo */}
+            
             <div className="flex-shrink-0">
               <Link href="/" className="flex items-center">
                 <Image
@@ -36,7 +36,7 @@ const Navbar = () => {
               </Link>
             </div>
 
-            {/* Slogan */}
+            
             <div className="text-center flex-1 px-4">
               <p className="text-xl lg:text-3xl">
                 Suivez tous les scores, classements et actualités <br className="hidden lg:block" /> 
@@ -47,15 +47,15 @@ const Navbar = () => {
               </p>
             </div>
 
-            {/* Bouton de thème */}
+            
             <div className="flex-shrink-0">
               <ThemeToggle />
             </div>
           </div>
 
-          {/* Version Mobile */}
+          
           <div className="md:hidden flex justify-between items-center py-4">
-            {/* Logo Mobile */}
+            
             <Link href="/" className="flex items-center">
               <Image
                 src="/images/stone.png"
@@ -66,7 +66,7 @@ const Navbar = () => {
               />
             </Link>
 
-            {/* Titre Mobile */}
+            
             <div className="flex-1 text-center px-2">
               <p className="text-sm font-bold">
                 <span className="text-white dark:text-gray-100">Stone</span>{" "}
@@ -74,17 +74,17 @@ const Navbar = () => {
               </p>
             </div>
 
-            {/* Bouton de thème Mobile */}
+            
             <ThemeToggle />
           </div>
         </div>
       </nav>
 
-      {/* Section inférieure - Navigation */}
+      
       <nav className="bg-gradient-to-b from-black to-[#BD343B] dark:from-gray-900 dark:to-[#8B2429] text-gray-300 dark:text-gray-400 shadow-md">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 md:h-20">
-            {/* Menu Desktop */}
+            
             <div className="hidden md:flex md:items-center md:justify-center md:space-x-4 lg:space-x-6 w-full">
               {navLinks.map((link) => (
                 <Link
@@ -97,7 +97,7 @@ const Navbar = () => {
               ))}
             </div>
 
-            {/* Bouton Hamburger Mobile */}
+            
             <div className="md:hidden w-full flex justify-center">
               <button
                 onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
@@ -131,7 +131,7 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Menu Mobile avec animation */}
+        
         <div 
           className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
             isMobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"

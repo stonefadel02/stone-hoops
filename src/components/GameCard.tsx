@@ -1,6 +1,6 @@
 'use client';
 
-import { Game } from '@/lib/api'; // Utilise l'interface de l'ancienne API
+import { Game } from '@/lib/api'; 
 import Image from 'next/image';
 
 interface GameCardProps {
@@ -10,40 +10,39 @@ interface GameCardProps {
 const GameCard = ({ game }: GameCardProps) => {
   const isFinished = game.event_status === 'Finished';
   
-  // Combine date et heure, gère les cas où l'heure pourrait manquer
+  
   const gameDateTimeString = `${game.event_date}${game.event_time ? `T${game.event_time}` : ''}`;
   const gameDate = new Date(gameDateTimeString);
 
-  // Vérifie si la date est valide avant de la formater
+  
   const isValidDate = !isNaN(gameDate.getTime());
   
   const formattedTime = isValidDate ? gameDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }) : 'N/A';
   const formattedDateInfo = isValidDate ? gameDate.toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric', month: 'numeric' }) : '';
   
-  // Couleurs de fond aléatoires (ou définissez des couleurs par équipe si vous préférez)
   const bgColors = [
     'from-orange-600 via-neutral-900 to-blue-900',
     'from-purple-600 via-neutral-900 to-yellow-600',
     'from-red-700 via-neutral-900 to-green-800',
   ];
-  // Choisit une couleur basée sur l'ID du match pour la cohérence
+  
   const bgColorClass = bgColors[parseInt(game.event_key || '0', 10) % bgColors.length];
 
   return (
     <div className="relative flex flex-col overflow-hidden rounded-lg shadow-xl border border-neutral-200 dark:border-neutral-800 h-full">
       
-      {/* Fond en dégradé diagonal */}
+      
       <div className={`absolute inset-0 -z-10 bg-gradient-to-br ${bgColorClass} opacity-80 dark:opacity-100`} />
 
-      {/* En-tête (Optionnel, basé sur l'image) */}
-      <div className="px-5 pt-4 text-xs font-semibold uppercase text-white/80">
+      
+      <div className="px-5 pt-4 text-lg font-semibold uppercase text-white/80">
         {game.league_round || game.league_name} · {formattedDateInfo}
       </div>
 
-      {/* Corps principal */}
+      
       <div className="z-10 flex flex-grow flex-col items-center justify-center p-5 text-white min-h-[160px]">
         {isFinished ? (
-          // --- VERSION MATCH TERMINÉ ---
+          
           <div className="flex w-full items-center justify-between">
             <TeamDisplay 
               logo={game.event_home_team_logo}
@@ -58,7 +57,7 @@ const GameCard = ({ game }: GameCardProps) => {
             />
           </div>
         ) : (
-          // --- VERSION MATCH À VENIR ---
+          
           <div className="flex w-full items-center justify-between">
             <TeamDisplay 
               logo={game.event_home_team_logo}
@@ -76,7 +75,7 @@ const GameCard = ({ game }: GameCardProps) => {
         )}
       </div>
       
-      {/* Pied de la carte (Liens) */}
+      
       <div className="z-10 mt-auto flex border-t border-white/20 bg-black/20 dark:bg-black/40 backdrop-blur-sm">
         <a href="#" className="flex-1 py-3 text-center text-xs font-semibold uppercase text-white/80 transition-colors hover:bg-white/10 hover:text-white">
           {isFinished ? 'Résumé' : 'Preview'}
@@ -89,17 +88,17 @@ const GameCard = ({ game }: GameCardProps) => {
   );
 };
 
-// Petit composant interne pour afficher une équipe
+
 const TeamDisplay = ({ logo, name }: { logo: string | null; name: string }) => (
   <div className="flex w-1/3 flex-col items-center text-center">
     <div className="relative h-12 w-12 sm:h-16 sm:w-16">
       <Image 
-        src={logo || '/default-logo.jpeg'} // Assurez-vous d'avoir un logo par défaut dans public/
+        src={logo || '/default-logo.jpeg'} 
         alt={name || 'Équipe'}
         fill
         sizes="(max-width: 640px) 48px, 64px"
-        className="object-contain drop-shadow-lg"
-        onError={(e) => { e.currentTarget.src = '/default-logo.jpeg'; }} // Fallback si l'image ne charge pas
+        className="object-contain rounded drop-shadow-lg"
+        onError={(e) => { e.currentTarget.src = '/default-logo.jpeg'; }} 
       />
     </div>
     <span className="mt-2 text-xs sm:text-sm font-semibold text-shadow">{name || 'N/A'}</span>

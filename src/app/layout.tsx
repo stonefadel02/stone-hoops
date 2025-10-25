@@ -1,13 +1,8 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-import { ThemeProvider } from "@/components/ThemeProvider"; // <-- 1. Importez
+import { ThemeProvider } from "@/components/ThemeProvider"; 
 import Footer from "@/components/Footer";
-
-
-
-
 
 
 export const metadata: Metadata = {
@@ -22,8 +17,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-       <body >
-        {/* 2. Enveloppez votre contenu avec le ThemeProvider */}
+       <body className="bg-gradient-to-b from-black to-[#BD343B] dark:from-gray-900 dark:to-[#8B2429]" >
+        
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

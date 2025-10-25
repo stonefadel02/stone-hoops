@@ -1,4 +1,4 @@
-import { Team } from '@/lib/api'; // Assurez-vous que ce type inclut bien 'city'
+import { Team } from '@/lib/api'; 
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -15,7 +15,7 @@ const TeamCard = ({ team }: TeamCardProps) => {
                  shadow-lg hover:shadow-xl dark:hover:border-neutral-700 
                  transition-all duration-300 transform hover:-translate-y-1"
     >
-      {/* Logo de l'équipe */}
+      
       <div className="relative h-24 w-24">
         {team.team_logo ? (
           <Image 
@@ -32,15 +32,12 @@ const TeamCard = ({ team }: TeamCardProps) => {
         )}
       </div>
 
-      {/* Nom de l'équipe et ville */}
+      
       <div className="text-center mt-4">
         <h2 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-red-500 dark:group-hover:text-red-500 transition-colors">
           {team.team_name}
         </h2>
-        {/* Vous pouvez ajouter la ville si elle est disponible dans vos données */}
-        {/* <p className="text-xs uppercase text-gray-500 dark:text-gray-400 mt-1">
-          {team.city}
-        </p> */}
+      
       </div>
     </Link>
   );
