@@ -81,7 +81,7 @@ const Navbar = () => {
       </nav>
 
       
-      <nav className="bg-gradient-to-t from-black to-[#BD343B] dark:from-gray-900 dark:to-[#8B2429] text-gray-300 dark:text-gray-400 shadow-md">
+      <nav className="bg-gradient-to-t from-black to-[#BD343B] dark:from-black dark:to-[#8B2429] text-white dark:text-white shadow-md">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 md:h-20">
             
@@ -142,7 +142,7 @@ const Navbar = () => {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-gray-300 dark:text-gray-400 hover:bg-gray-700 dark:hover:bg-gray-800 hover:text-white dark:hover:text-gray-100 block px-4 py-3 rounded-md text-base font-medium transition-colors"
+                className="text-white dark:text-white hover:bg-gray-700 dark:hover:bg-gray-800 hover:text-white dark:hover:text-gray-100 block px-4 py-3 rounded-md text-base font-medium transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {link.label}
