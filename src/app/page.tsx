@@ -9,7 +9,7 @@ export default async function Home() {
   ]);
 
   return (
-    <div className="mt-28">
+    <div className="sm:mt-28 mt-10">
       
       <div className="text-center mb-12">
         <h1 className="text-4xl sm:text-6xl font-extrabold uppercase tracking-widest text-neutral-900 dark:text-white"
