@@ -81,7 +81,7 @@ const Navbar = () => {
       </nav>
 
       
-      <nav className="bg-gradient-to-b from-black to-[#BD343B] dark:from-gray-900 dark:to-[#8B2429] text-gray-300 dark:text-gray-400 shadow-md">
+      <nav className="bg-gradient-to-t from-black to-[#BD343B] dark:from-gray-900 dark:to-[#8B2429] text-gray-300 dark:text-gray-400 shadow-md">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 md:h-20">
             
@@ -137,7 +137,7 @@ const Navbar = () => {
             isMobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
           }`}
         >
-          <div className="px-4 py-3 space-y-2 bg-gradient-to-b from-black to-[#BD343B] dark:from-gray-900 dark:to-[#8B2429] text-gray-300 dark:text-gray-400 shadow-md border-t border-gray-800 dark:border-gray-700">
+          <div className="px-4 py-3 space-y-2 bg-gradient-to-b from-black to-[#BD343B] dark:from-gray-900 dark:to-[#8B2429] text-gray-300 dark:text-gray-400 shadow-md">
             {navLinks.map((link) => (
               <Link
                 key={link.href}

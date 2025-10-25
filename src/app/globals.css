@@ -14,8 +14,8 @@
 
 :root.dark {
   --foreground-dark: #ffffff; 
-  --gradient-start-dark: #000000; 
-  --gradient-end-dark: #8B2429;   
+  --gradient-start-dark: #290102; 
+  --gradient-end-dark: #000000;   
 
   --foreground: var(--foreground-dark);
   --gradient-start: var(--gradient-start-dark);
