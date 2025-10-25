@@ -1,145 +1,59 @@
-Stone Hoops League - Site Web Officiel
+# Stone Hoops League 
 
+![Stone Hoops Logo](/public/images/stone.png) Bienvenue sur le dépôt du site web officiel de la **Stone Hoops League**, une ligue de basketball professionnelle fictive. Ce projet a été réalisé dans le cadre du test technique de **Tailoring Sports Investments (TSI)**.
 
-Bienvenue sur le dépôt du site web officiel de la Stone Hoops League, une ligue de basketball professionnelle fictive réalisé dans le cadre du test technique de Tailoring Sports Investments (TSI).
+**Lien vers la Démo Live :** [À AJOUTER - URL Vercel/Netlify]
 
-Lien vers la Démo Live : [À AJOUTER - URL Vercel/Netlify]
-
-Objectif
+## Objectif
 
 Créer une expérience web moderne, engageante et informative pour les fans de basketball, en simulant le développement d'un site pour une organisation sportive.
 
-Fonctionnalités Implémentées
+## Fonctionnalités Implémentées
 
-Gestion des Équipes : Affichage de la liste des équipes et page de détails avec l'effectif (roster).
+* **Gestion des Équipes :** Affichage de la liste des équipes et page de détails avec l'effectif (roster).
+* **Calendrier & Résultats :** Sections distinctes pour les matchs à venir et les résultats récents.
+* **Classement :** Tableau de classement de la ligue.
+* **Design Responsive :** Interface adaptée aux mobiles, tablettes et ordinateurs de bureau.
+* **Mode Sombre/Clair :** Basculement de thème avec persistance du choix utilisateur (`next-themes`).
+* **Indicateurs de Chargement :** Affichage d'un spinner animé global pendant la récupération des données (`loading.tsx`).
+* **(Bonus) Visualisation de Données :** Graphique à barres pour les classements (via `Recharts`).
+* **(Bonus) Export de Données :** Bouton pour exporter le classement au format CSV.
 
-Calendrier & Résultats : Sections distinctes pour les matchs à venir et les résultats récents.
+## Stack Technique
 
-Classement : Tableau de classement de la ligue.
+* **Framework :** Next.js 14+ (App Router)
+* **Langage :** TypeScript (Strict Mode)
+* **Styling :** Tailwind CSS (v4)
+* **Qualité du Code :** ESLint & Prettier
+* **Gestion du Thème :** `next-themes`
+* **API de Données :** AllSportsAPI (Basketball) - *Utilisée avec des données mock pour les effectifs.*
+* **Graphiques :** Recharts
 
-Recherche Globale : Barre de recherche permettant de trouver des équipes.
+## Instructions d'Installation
 
-Design Responsive : Interface adaptée aux mobiles, tablettes et ordinateurs de bureau.
+1.  **Cloner le dépôt :**
+    ```bash
+    git clone [https://github.com/stonefadel02/stone-hoops.git]
+    cd stone-hoops
+    ```
 
-Mode Sombre/Clair : Basculement de thème avec persistance du choix utilisateur.
+2.  **Installer les dépendances :**
+    ```bash
+    npm install
+    # ou yarn install ou pnpm install
+    ```
 
-Indicateurs de Chargement : Affichage d'un spinner pendant la récupération des données.
+3.  **Configurer les variables d'environnement :**
+    * Créez un fichier `.env.local` à la racine du projet.
+    * Ajoutez votre clé API AllSportsAPI :
+        ```env
+        API_KEY=VOTRE_CLE_API_ALLSPORTSAPI_ICI
+        ```
 
-(Bonus) Visualisation de Données : Graphique des classements (si implémenté).
+## Guide de Démarrage
 
-(Bonus) Export de Données : Bouton pour exporter le classement en CSV (si implémenté).
+Pour lancer le serveur local :
 
-Stack Technique
-
-Framework : Next.js 14+ (App Router)
-
-Langage : TypeScript (Strict Mode)
-
-Styling : Tailwind CSS (v4)
-
-Qualité du Code : ESLint & Prettier
-
-Gestion du Thème : next-themes
-
-API de Données : AllSportsAPI (Basketball)
-
-(Optionnel) Graphiques : Recharts
-
-Instructions d'Installation
-
-Cloner le dépôt :
-
-git clone [URL_DE_VOTRE_DEPOT_GIT]
-cd stone-hoops 
-
-
-Installer les dépendances :
-
-npm install
-# ou yarn install ou pnpm install
-
-
-Configurer les variables d'environnement :
-
-Créez un fichier .env.local à la racine du projet.
-
-Ajoutez votre clé API AllSportsAPI :
-
-API_KEY=VOTRE_CLE_API_ALLSPORTSAPI_ICI
-
-
-Guide de Démarrage
-
-Pour lancer le serveur de développement local :
-
+```bash
 npm run dev
 # ou yarn dev ou pnpm dev
-
-
-Ouvrez http://localhost:3000 dans votre navigateur.
-
-Architecture du Projet
-
-Le projet suit la structure standard de Next.js avec l'App Router :
-
-src/app/ : Contient les différentes routes (pages) et layouts.
-
-page.tsx : Page d'accueil (affiche les équipes).
-
-layout.tsx : Layout principal (Navbar, Footer, ThemeProvider).
-
-loading.tsx : Loader global par défaut.
-
-teams/ : Route pour la liste des équipes (redondant si page.tsx les affiche).
-
-teams/[teamId]/ : Route dynamique pour les détails d'une équipe.
-
-page.tsx : Page serveur pour récupérer les données.
-
-loading.tsx : Loader spécifique pour cette page.
-
-schedule/ : Route pour le calendrier et les résultats.
-
-standings/ : Route pour le classement.
-
-src/components/ : Contient les composants React réutilisables (Client et Server Components).
-
-Navbar.tsx : Barre de navigation supérieure et inférieure.
-
-Footer.tsx : Pied de page.
-
-TeamCard.tsx : Carte pour afficher une équipe.
-
-GameCard.tsx : Carte pour afficher un match (résultat ou à venir).
-
-StandingsTable.tsx : Tableau pour afficher le classement.
-
-PlayerCard.tsx : Carte pour afficher un joueur.
-
-SearchBar.tsx : Composant de recherche (Client Component).
-
-ThemeToggle.tsx : Bouton pour changer de thème (Client Component).
-
-ThemeProvider.tsx : Provider pour next-themes (Client Component).
-
-TeamDetailsDisplay.tsx: Composant client pour afficher les détails d'une équipe.
-
-(Bonus) StandingsChart.tsx : Graphique pour le classement.
-
-(Bonus) ExportButton.tsx : Bouton d'export CSV.
-
-src/lib/ : Contient la logique non-UI.
-
-api.ts : Fonctions centralisées pour les appels à l'API AllSportsAPI.
-
-src/data/ : Contient les données statiques (mock data pour les joueurs si utilisé).
-
-public/ : Contient les assets statiques (images, logos).
-
-tailwind.config.ts : Configuration de Tailwind CSS.
-
-next.config.js : Configuration de Next.js (notamment pour les domaines d'images externes).
-
-License
-
-[Optionnel - ex: MIT License]
