@@ -36,7 +36,7 @@ export default async function StandingsPage() {
         </div>
       ) : (
         <p className="rounded-lg border border-gray-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-6 text-center text-gray-700 dark:text-gray-400">
-          Le classement n'est pas disponible pour le moment.
+          Le classement n`est pas disponible pour le moment.
         </p>
       )}
     </div>

@@ -1,11 +1,10 @@
-
 const API_BASE_URL = "https://apiv2.allsportsapi.com/basketball/";
 const API_KEY = process.env.API_KEY;
 
 export interface Team {
   team_key: string;
   team_name: string;
-  team_logo: string | null; 
+  team_logo: string | null;
 }
 
 export interface Game {
@@ -25,13 +24,12 @@ export interface Game {
 export interface Standing {
   standing_place: string;
   standing_team: string;
-  standing_P: string; 
-  standing_W: string; 
-  standing_L: string; 
+  standing_P: string;
+  standing_W: string;
+  standing_L: string;
   team_key: string;
   league_key: string;
 }
-
 
 export interface Player {
   player: string;
@@ -45,7 +43,6 @@ export interface TeamDetails {
   players: Player[];
 }
 
-
 export async function getUpcomingGames(leagueId: string): Promise<Game[]> {
   if (!API_KEY) {
     throw new Error("API key is not defined");
@@ -55,7 +52,7 @@ export async function getUpcomingGames(leagueId: string): Promise<Game[]> {
   const sevenDaysLater = new Date();
   sevenDaysLater.setDate(today.getDate() + 7);
 
-  const fromDate = formatDate(today); 
+  const fromDate = formatDate(today);
   const toDate = formatDate(sevenDaysLater);
 
   const url = `${API_BASE_URL}?met=Fixtures&leagueId=${leagueId}&from=${fromDate}&to=${toDate}&APIkey=${API_KEY}`;
@@ -68,14 +65,20 @@ export async function getUpcomingGames(leagueId: string): Promise<Game[]> {
 
   const data = await response.json();
 
-  return (data.result || []).sort((a: Game, b: Game) =>
-    new Date(a.event_date + (a.event_time ? 'T' + a.event_time : '')).getTime() -
-    new Date(b.event_date + (b.event_time ? 'T' + b.event_time : '')).getTime()
+  return (data.result || []).sort(
+    (a: Game, b: Game) =>
+      new Date(
+        a.event_date + (a.event_time ? "T" + a.event_time : "")
+      ).getTime() -
+      new Date(
+        b.event_date + (b.event_time ? "T" + b.event_time : "")
+      ).getTime()
   );
 }
 
-
-export async function getTeamDetails(teamId: string): Promise<TeamDetails | null> {
+export async function getTeamDetails(
+  teamId: string
+): Promise<TeamDetails | null> {
   if (!API_KEY) {
     throw new Error("API key is not defined");
   }
@@ -88,7 +91,7 @@ export async function getTeamDetails(teamId: string): Promise<TeamDetails | null
   const toDate = formatDate(today);
 
   const url = `${API_BASE_URL}?met=Fixtures&teamId=${teamId}&from=${fromDate}&to=${toDate}&APIkey=${API_KEY}`;
-  
+
   const response = await fetch(url);
 
   if (!response.ok) {
@@ -98,12 +101,17 @@ export async function getTeamDetails(teamId: string): Promise<TeamDetails | null
   const data = await response.json();
   const matches = data.result || [];
 
-  if (matches.length === 0 || matches[0]?.param === 'from') {
-    console.error("Aucun match trouvé pour cette équipe dans la plage de dates ou l'API a renvoyé une erreur.");
-    return null; 
+  if (matches.length === 0 || matches[0]?.param === "from") {
+    console.error(
+      "Aucun match trouvé pour cette équipe dans la plage de dates ou l'API a renvoyé une erreur."
+    );
+    return null;
   }
 
-  matches.sort((a: Game, b: Game) => new Date(b.event_date).getTime() - new Date(a.event_date).getTime());
+  matches.sort(
+    (a: Game, b: Game) =>
+      new Date(b.event_date).getTime() - new Date(a.event_date).getTime()
+  );
 
   let teamDetails: TeamDetails | null = null;
 
@@ -112,19 +120,28 @@ export async function getTeamDetails(teamId: string): Promise<TeamDetails | null
 
     if (hasLineups) {
       const isHomeTeam = match.home_team_key === teamId;
-      const teamData = isHomeTeam ? match.lineups.home_team : match.lineups.away_team;
-      
+      const teamData = isHomeTeam
+        ? match.lineups.home_team
+        : match.lineups.away_team;
+
       if (teamData) {
-        const players = [...(teamData.starting_lineups ?? []), ...(teamData.substitutes ?? [])];
+        const players = [
+          ...(teamData.starting_lineups ?? []),
+          ...(teamData.substitutes ?? []),
+        ];
 
         if (players.length > 0) {
           teamDetails = {
             team_key: teamId,
-            team_name: isHomeTeam ? match.event_home_team : match.event_away_team,
-            team_logo: isHomeTeam ? match.event_home_team_logo : match.event_away_team_logo,
+            team_name: isHomeTeam
+              ? match.event_home_team
+              : match.event_away_team,
+            team_logo: isHomeTeam
+              ? match.event_home_team_logo
+              : match.event_away_team_logo,
             players: players,
           };
-          break; 
+          break;
         }
       }
     }
@@ -135,9 +152,13 @@ export async function getTeamDetails(teamId: string): Promise<TeamDetails | null
     const isHomeTeam = latestMatch.home_team_key === teamId;
     return {
       team_key: teamId,
-      team_name: isHomeTeam ? latestMatch.event_home_team : latestMatch.event_away_team,
-      team_logo: isHomeTeam ? latestMatch.event_home_team_logo : latestMatch.event_away_team_logo,
-      players: [], // avec un effectif vide
+      team_name: isHomeTeam
+        ? latestMatch.event_home_team
+        : latestMatch.event_away_team,
+      team_logo: isHomeTeam
+        ? latestMatch.event_home_team_logo
+        : latestMatch.event_away_team_logo,
+      players: [],
     };
   }
 
@@ -149,7 +170,7 @@ export async function getStandings(leagueId: string): Promise<Standing[]> {
   }
 
   const url = `${API_BASE_URL}?met=Standings&leagueId=${leagueId}&APIkey=${API_KEY}`;
-  
+
   const response = await fetch(url);
 
   if (!response.ok) {
@@ -157,13 +178,12 @@ export async function getStandings(leagueId: string): Promise<Standing[]> {
   }
 
   const data = await response.json();
-  
 
-  return data.result?.total || []; 
+  return data.result?.total || [];
 }
 
 function formatDate(date: Date): string {
-  return date.toISOString().split('T')[0];
+  return date.toISOString().split("T")[0];
 }
 
 export async function getRecentResults(leagueId: string): Promise<Game[]> {
@@ -179,7 +199,7 @@ export async function getRecentResults(leagueId: string): Promise<Game[]> {
   const toDate = formatDate(today);
 
   const url = `${API_BASE_URL}?met=Fixtures&leagueId=${leagueId}&from=${fromDate}&to=${toDate}&APIkey=${API_KEY}`;
-  
+
   const response = await fetch(url);
 
   if (!response.ok) {
@@ -187,9 +207,10 @@ export async function getRecentResults(leagueId: string): Promise<Game[]> {
   }
 
   const data = await response.json();
-  
-  return (data.result || []).sort((a: Game, b: Game) => 
-    new Date(b.event_date).getTime() - new Date(a.event_date).getTime()
+
+  return (data.result || []).sort(
+    (a: Game, b: Game) =>
+      new Date(b.event_date).getTime() - new Date(a.event_date).getTime()
   );
 }
 
@@ -203,13 +224,11 @@ export async function getTeams(leagueId: string): Promise<Team[]> {
   console.log("Fetching teams from URL:", url);
   const response = await fetch(url);
 
-
   if (!response.ok) {
     throw new Error(`Failed to fetch teams: ${response.statusText}`);
   }
 
   const data = await response.json();
 
-
-  return data.result || []; 
+  return data.result || [];
 }
