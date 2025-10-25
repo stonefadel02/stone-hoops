@@ -1,5 +1,6 @@
-// src/components/GameCard.tsx
-import { Game } from '@/lib/api';
+'use client';
+
+import { Game } from '@/lib/api'; // Utilise l'interface de l'ancienne API
 import Image from 'next/image';
 
 interface GameCardProps {
@@ -7,43 +8,103 @@ interface GameCardProps {
 }
 
 const GameCard = ({ game }: GameCardProps) => {
-  return (
-    <div className="border p-4 rounded-lg shadow-md bg-white dark:bg-gray-800 flex flex-col items-center">
-      <div className="text-sm text-gray-500 dark:text-gray-400 mb-2">
-        {new Date(game.event_date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}
-      </div>
-      <div className="grid grid-cols-3 items-center w-full">
-        {/* Équipe Domicile */}
-        <div className="flex flex-col items-center text-center">
-          <Image 
-            src={game.event_home_team_logo || '/default-logo.png'} 
-            alt={game.event_home_team}
-            width={40}
-            height={40}
-            className="h-10 w-10 object-contain"
-          />
-          <span className="font-semibold mt-1">{game.event_home_team}</span>
-        </div>
+  const isFinished = game.event_status === 'Finished';
+  
+  // Combine date et heure, gère les cas où l'heure pourrait manquer
+  const gameDateTimeString = `${game.event_date}${game.event_time ? `T${game.event_time}` : ''}`;
+  const gameDate = new Date(gameDateTimeString);
 
-        {/* Score */}
-        <div className="text-center">
-          <span className="text-2xl font-bold">{game.event_final_result}</span>
-        </div>
-        
-        {/* Équipe Extérieur */}
-        <div className="flex flex-col items-center text-center">
-          <Image 
-            src={game.event_away_team_logo || '/default-logo.png'} 
-            alt={game.event_away_team}
-            width={40}
-            height={40}
-            className="h-10 w-10 object-contain"
-          />
-          <span className="font-semibold mt-1">{game.event_away_team}</span>
-        </div>
+  // Vérifie si la date est valide avant de la formater
+  const isValidDate = !isNaN(gameDate.getTime());
+  
+  const formattedTime = isValidDate ? gameDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }) : 'N/A';
+  const formattedDateInfo = isValidDate ? gameDate.toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric', month: 'numeric' }) : '';
+  
+  // Couleurs de fond aléatoires (ou définissez des couleurs par équipe si vous préférez)
+  const bgColors = [
+    'from-orange-600 via-neutral-900 to-blue-900',
+    'from-purple-600 via-neutral-900 to-yellow-600',
+    'from-red-700 via-neutral-900 to-green-800',
+  ];
+  // Choisit une couleur basée sur l'ID du match pour la cohérence
+  const bgColorClass = bgColors[parseInt(game.event_key || '0', 10) % bgColors.length];
+
+  return (
+    <div className="relative flex flex-col overflow-hidden rounded-lg shadow-xl border border-neutral-200 dark:border-neutral-800 h-full">
+      
+      {/* Fond en dégradé diagonal */}
+      <div className={`absolute inset-0 -z-10 bg-gradient-to-br ${bgColorClass} opacity-80 dark:opacity-100`} />
+
+      {/* En-tête (Optionnel, basé sur l'image) */}
+      <div className="px-5 pt-4 text-xs font-semibold uppercase text-white/80">
+        {game.league_round || game.league_name} · {formattedDateInfo}
+      </div>
+
+      {/* Corps principal */}
+      <div className="z-10 flex flex-grow flex-col items-center justify-center p-5 text-white min-h-[160px]">
+        {isFinished ? (
+          // --- VERSION MATCH TERMINÉ ---
+          <div className="flex w-full items-center justify-between">
+            <TeamDisplay 
+              logo={game.event_home_team_logo}
+              name={game.event_home_team}
+            />
+            <div className="text-4xl font-bold tracking-tight">
+              {game.event_final_result || 'N/A'} 
+            </div>
+            <TeamDisplay 
+              logo={game.event_away_team_logo}
+              name={game.event_away_team}
+            />
+          </div>
+        ) : (
+          // --- VERSION MATCH À VENIR ---
+          <div className="flex w-full items-center justify-between">
+            <TeamDisplay 
+              logo={game.event_home_team_logo}
+              name={game.event_home_team}
+            />
+            <div className="flex flex-col items-center">
+              <span className="text-3xl font-bold">{formattedTime}</span>
+              <span className="text-sm text-gray-300">{game.event_status}</span>
+            </div>
+            <TeamDisplay 
+              logo={game.event_away_team_logo}
+              name={game.event_away_team}
+            />
+          </div>
+        )}
+      </div>
+      
+      {/* Pied de la carte (Liens) */}
+      <div className="z-10 mt-auto flex border-t border-white/20 bg-black/20 dark:bg-black/40 backdrop-blur-sm">
+        <a href="#" className="flex-1 py-3 text-center text-xs font-semibold uppercase text-white/80 transition-colors hover:bg-white/10 hover:text-white">
+          {isFinished ? 'Résumé' : 'Preview'}
+        </a>
+        <a href="#" className="flex-1 border-l border-white/20 py-3 text-center text-xs font-semibold uppercase text-white/80 transition-colors hover:bg-white/10 hover:text-white">
+          {isFinished ? 'Stats' : 'Séries'}
+        </a>
       </div>
     </div>
   );
 };
 
+// Petit composant interne pour afficher une équipe
+const TeamDisplay = ({ logo, name }: { logo: string | null; name: string }) => (
+  <div className="flex w-1/3 flex-col items-center text-center">
+    <div className="relative h-12 w-12 sm:h-16 sm:w-16">
+      <Image 
+        src={logo || '/default-logo.jpeg'} // Assurez-vous d'avoir un logo par défaut dans public/
+        alt={name || 'Équipe'}
+        fill
+        sizes="(max-width: 640px) 48px, 64px"
+        className="object-contain drop-shadow-lg"
+        onError={(e) => { e.currentTarget.src = '/default-logo.jpeg'; }} // Fallback si l'image ne charge pas
+      />
+    </div>
+    <span className="mt-2 text-xs sm:text-sm font-semibold text-shadow">{name || 'N/A'}</span>
+  </div>
+);
+
 export default GameCard;
+
