@@ -1,13 +1,14 @@
-import TeamDetailsDisplay from "@/components/TeamDetailsDisplay";
-import { getTeamDetails } from "@/lib/api";
+import TeamDetailsDisplay from '@/components/TeamDetailsDisplay';
+import { getTeamDetails } from '@/lib/api';
 
-export default async function TeamDetailPage({
-  params,
-}: {
-  params: { teamId: string };
-}) {
-  const { teamId } = params;
+type Props = {
+  params: Promise<{ teamId: string }>;
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+export default async function TeamDetailPage({ params }: Props) {
+  const { teamId } = await params; 
   const teamDetails = await getTeamDetails(teamId);
-
+  
   return <TeamDetailsDisplay teamDetails={teamDetails} />;
 }
