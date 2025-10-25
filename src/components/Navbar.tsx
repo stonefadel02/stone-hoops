@@ -19,7 +19,7 @@ const Navbar = () => {
   return (
     <div>
       
-      <nav className="bg-gradient-to-t dark:from-[#BD343B] dark:to-black from-[#8B2429] to-gray-900 dark:text-gray-300 text-white shadow-md">
+      <nav className="bg-gradient-to-t dark:from-[#BD343B]/60 dark:to-black from-[#8B2429] to-gray-900 dark:text-gray-300 text-white shadow-md">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="hidden md:flex justify-between items-center h-48 lg:h-72">
@@ -81,7 +81,7 @@ const Navbar = () => {
       </nav>
 
       
-      <nav className="bg-gradient-to-t from-black to-[#BD343B] dark:from-black dark:to-[#8B2429] text-white dark:text-white shadow-md">
+      <nav className="bg-gradient-to-b from-black to-[#BD343B] dark:from-black dark:to-[#8B2429]/70 text-white dark:text-white shadow-md">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 md:h-20">
             
