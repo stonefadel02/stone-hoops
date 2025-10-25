@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --foreground-light: #171717; 
+  --gradient-start-light: #ebebeb; 
+  --gradient-end-light: #FFFFFF;   
+
+  --foreground: var(--foreground-light);
+  --gradient-start: var(--gradient-start-light);
+  --gradient-end: var(--gradient-end-light);
+}
+
+:root.dark {
+  --foreground-dark: #ffffff; 
+  --gradient-start-dark: #BD343B; 
+  --gradient-end-dark: #000000;   
+
+  --foreground: var(--foreground-dark);
+  --gradient-start: var(--gradient-start-dark);
+  --gradient-end: var(--gradient-end-dark);
+}
+
+body {
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  
+  background-image: linear-gradient(to top, var(--gradient-start), var(--gradient-end));
+  
+  background-color: var(--gradient-end); 
+  
+  min-height: 100vh; 
+  
+  background-repeat: no-repeat; 
+}
+
