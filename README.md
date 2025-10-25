@@ -2,7 +2,7 @@
 
 ![Stone Hoops Logo](/public/images/stone.png) Bienvenue sur le dépôt du site web officiel de la **Stone Hoops League**, une ligue de basketball professionnelle fictive. Ce projet a été réalisé dans le cadre du test technique de **Tailoring Sports Investments (TSI)**.
 
-**Lien vers la Démo Live :** [À AJOUTER - URL Vercel/Netlify]
+**Lien vers la Démo Live :** [(https://stone-hoops.netlify.app/)]
 
 ## Objectif
 
