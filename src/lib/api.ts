@@ -1,5 +1,5 @@
 const API_BASE_URL = "https://apiv2.allsportsapi.com/basketball/";
-const API_KEY = process.env.API_KEY;
+const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 export interface Team {
   team_key: string;

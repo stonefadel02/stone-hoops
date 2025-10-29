@@ -1,0 +1,135 @@
+.typing-text {
+  display: inline-block;
+  overflow: hidden;
+ border-right-width: 4px; /* Équivalent de border-r-4 */
+  border-right-color: white; /* Équivalent de border-r-white */
+  white-space: nowrap;
+  animation: typing 5.5s steps(65, end) infinite alternate, blink 0.7s infinite;
+  letter-spacing: 0.05em;
+  padding-right: 0.75rem;
+}
+
+@keyframes typing {
+  0% {
+    width: 0%;
+    visibility: hidden;
+  }
+  100% {
+    width: 100%;
+    visibility: visible;
+  }
+}
+
+@keyframes blink {
+  50% {
+    border-right-color: transparent;
+  }
+  100% {
+    border-right-color: white;
+  }
+}
+
+/* Mode sombre */
+.dark .typing-text {
+  border-right-color: white;;
+}
+
+.dark .typing-text {
+  animation: typing 3.5s steps(65, end) infinite alternate, blink-dark 0.7s infinite;
+}
+
+@keyframes blink-dark {
+  50% {
+    border-right-color: transparent;
+  }
+  100% {
+    border-right-color: #e5e7eb;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .typing-text {
+    font-size: 0.9em;
+    animation: typing 3s steps(50, end) infinite alternate, blink 0.7s infinite;
+  }
+}
+
+
+
+@keyframes melt {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    /* Amplitude réduite pour la navbar */
+    transform: translateY(5px);
+  }
+}
+
+@keyframes drip {
+  0%, 100% {
+    transform: scaleY(1);
+    opacity: 0.5;
+  }
+  50% {
+    /* Effet d'étirement réduit */
+    transform: scaleY(1.2);
+    opacity: 0.7;
+  }
+}
+
+.melting-text-container {
+  position: relative;
+  display: inline-block; /* Pour s'aligner avec le reste du texte */
+  overflow: hidden; /* Cache les effets de débordement si nécessaire */
+  vertical-align: bottom; /* Aligner avec la ligne de base du texte */
+}
+
+.melting-text {
+  position: relative;
+  display: inline-block; /* Nécessaire pour les pseudo-éléments */
+  /* Utilise les couleurs de Stone Hoops */
+  background: linear-gradient(90deg, #FFFFFF, #BD343B, #FFFFFF); /* Clair: Blanc -> Rouge -> Blanc */
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: melt 2.5s infinite ease-in-out; /* Durée ajustée */
+  font-weight: bold; /* Garde le style du span original */
+}
+
+/* Mode sombre pour le texte principal */
+.dark .melting-text {
+  background: linear-gradient(90deg, #E5E7EB, #FF4C54, #E5E7EB); /* Sombre: Gris Clair -> Rouge Vif -> Gris Clair */
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.melting-text::before,
+.melting-text::after {
+  content: attr(data-text); /* Utilise le texte de l'attribut data-text */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Utilise les mêmes dégradés que le texte */
+  background: linear-gradient(90deg, #FFFFFF, #BD343B, #FFFFFF); /* Clair */
+  -webkit-background-clip: text;
+  color: transparent;
+  z-index: -1;
+  transform: scaleY(1);
+  opacity: 0.5;
+  animation: drip 2.5s infinite ease-in-out; /* Durée ajustée */
+}
+/* Mode sombre pour les pseudo-éléments */
+.dark .melting-text::before,
+.dark .melting-text::after {
+   background: linear-gradient(90deg, #E5E7EB, #FF4C54, #E5E7EB); /* Sombre */
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.melting-text::after {
+  filter: blur(5px); /* Flou réduit */
+  opacity: 0.3;
+}

@@ -35,3 +35,380 @@ body {
   background-repeat: no-repeat; 
 }
 
+/* --- Styles du Loader --- */
+
+.loader {
+  width: 80px;
+  aspect-ratio: 1;
+  /* MODIFIÉ : Utilise votre rouge pour le mode clair */
+  border: 10px solid #BD343B; 
+  box-sizing: border-box;
+  background:
+    /* Les points restent blancs (couleur du fond de la page) */
+    radial-gradient(farthest-side,#fff 98%,#0000) 50%/20px 20px,
+    radial-gradient(farthest-side,#fff 98%,#0000) 50%/20px 20px,
+    radial-gradient(farthest-side,#fff 98%,#0000) 50%/20px 20px,
+    radial-gradient(farthest-side,#fff 98%,#0000) 50%/20px 20px,
+    radial-gradient(farthest-side,#fff 98%,#0000) 50%/80% 80%,
+    /* MODIFIÉ : Utilise votre rouge pour le mode clair */
+    #BD343B; 
+  background-repeat: no-repeat;
+  filter: blur(4px) contrast(10);
+  animation: l17 1s infinite alternate;
+}
+
+/* Ajustement pour le mode sombre */
+.dark .loader {
+  /* MODIFIÉ : Utilise votre rouge vif pour le mode sombre */
+  border-color: #FF4C54; 
+  background:
+    /* Les points restent noirs (couleur du fond de la page) */
+    radial-gradient(farthest-side,#0a0a0a 98%,#0000) 50%/20px 20px,
+    radial-gradient(farthest-side,#0a0a0a 98%,#0000) 50%/20px 20px,
+    radial-gradient(farthest-side,#0a0a0a 98%,#0000) 50%/20px 20px,
+    radial-gradient(farthest-side,#0a0a0a 98%,#0000) 50%/20px 20px,
+    radial-gradient(farthest-side,#0a0a0a 98%,#0000) 50%/80% 80%,
+    /* MODIFIÉ : Utilise votre rouge vif pour le mode sombre */
+    #FF4C54; 
+}
+
+@keyframes l17 {
+  0%   {background-position:50% 50%,50% 50%,50% 50%,50% 50%,50% 50%}
+  25%  {background-position:0 0,50% 50%,50% 50%,50% 50%,50% 50%}
+  50%  {background-position:0 0,100% 0,50% 50%,50% 50%,50% 50%}
+  75%  {background-position:0 0,100% 0,100% 100%,50% 50%,50% 50%}
+  100% {background-position:0 0,100% 0,100% 100%,0 100%,50% 50%}
+}
+
+@keyframes l17 {
+  0%   {background-position:50% 50%,50% 50%,50% 50%,50% 50%,50% 50%}
+  25%  {background-position:0 0,50% 50%,50% 50%,50% 50%,50% 50%}
+  50%  {background-position:0 0,100% 0,50% 50%,50% 50%,50% 50%}
+  75%  {background-position:0 0,100% 0,100% 100%,50% 50%,50% 50%}
+  100% {background-position:0 0,100% 0,100% 100%,0 100%,50% 50%}
+}
+
+
+@keyframes wave {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    /* Amplitude de la vague réduite pour être plus subtile */
+    transform: translateY(-10px); 
+  }
+}
+
+/* Classe appliquée à chaque mot. 
+  'display: inline-block' est crucial pour que 'transform' fonctionne.
+*/
+.wave-text-letter {
+  display: inline-block;
+  /* Applique l'animation (nom, durée, type, infini) */
+  animation: wave 2s ease-in-out infinite;
+  /* Le délai (animation-delay) sera appliqué via le style inline dans le composant React */
+}
+
+/* globals.css */
+.embla { overflow: hidden; }
+.embla__container { display: flex; }
+.embla__slide { position: relative; flex: 0 0 100%; /* Important: chaque slide prend 100% */}
+
+
+
+@keyframes roll {
+  0% {
+    font-size: 0px;
+    opacity: 0;
+    margin-left: -30px;
+    margin-top: 0px;
+    transform: rotate(-25deg);
+  }
+  3% {
+    opacity: 1;
+    transform: rotate(0deg);
+  }
+  /* Ajustement: Taille de police appliquée plus tôt */
+  5% {
+    font-size: inherit; /* Utilise la taille définie sur le parent */
+    opacity: 1;
+    margin-left: 0px;
+    margin-top: 0px;
+  }
+  /* Temps visible réduit */
+  15% {
+    font-size: inherit;
+    opacity: 1;
+    margin-left: 0px;
+    margin-top: 0px;
+    transform: rotate(0deg);
+  }
+  /* Disparition plus rapide */
+  20% {
+    font-size: 0px;
+    opacity: 0.5;
+    margin-left: 20px;
+    margin-top: 50px; /* Moins de chute */
+  }
+  100% {
+    font-size: 0px;
+    opacity: 0;
+    margin-left: -30px;
+    margin-top: 0px;
+    transform: rotate(15deg);
+  }
+}
+
+/* @keyframes roll2 reste similaire mais vous pouvez l'ajuster aussi si besoin */
+@keyframes roll2 {
+ 0% {
+    font-size:0px;
+    opacity:0;
+    margin-left:-30px;
+    margin-top:0px;
+    transform: rotate(-25deg);
+  }
+  3% {
+    opacity:1;
+    transform: rotate(0deg);
+  }
+  5% {
+    font-size:inherit;
+    opacity:1;
+    margin-left:0px;
+    margin-top:0px;
+  }
+  /* Visible plus longtemps */
+  30% {
+    font-size:inherit;
+    opacity:1;
+    margin-left:0px;
+    margin-top:0px;
+    transform: rotate(0deg);
+  }
+  /* Effet de sortie différent, moins extrême */
+   37% {
+    font-size:0px;
+    opacity:0;
+    margin-left:50px; /* Moins de déplacement */
+    margin-top:100px; /* Moins de chute */
+  }
+  100% {
+    font-size:0px;
+    opacity:0;
+    margin-left:-30px;
+    margin-top:0px;
+    transform: rotate(15deg);
+  }
+}
+
+.dropping-texts-container {
+  /* Pour aligner le texte qui tombe avec le texte statique */
+  display: inline-flex;
+  align-items: baseline; /* Aligne sur la ligne de base */
+  gap: 0.5rem; /* Espace entre texte statique et texte animé */
+}
+
+.dropping-texts {
+  display: inline-block;
+  /* Ajustez la largeur pour correspondre à vos mots les plus longs */
+  width: auto; /* Laisser s'adapter, ou fixer une largeur si besoin */
+  min-width: 150px; /* Exemple */
+  text-align: left;
+  font-weight: 200px;
+  /* Hauteur ajustée à la taille de police */
+  height: 30px; /* Hauteur relative à la police */
+  vertical-align: baseline; /* Aligner avec la ligne de base */
+  position: relative; /* Pour positionner les enfants */
+}
+
+.dropping-texts > div {
+  font-size: 0px; /* Commence invisible */
+  opacity: 0;
+  margin-left: -30px;
+  position: absolute; /* Les mots se superposent */
+  left: 0;
+  top: 0;
+  font-weight: 500; /* Medium weight */
+  /* Couleur texte pour mode clair */
+  color: #BD343B;
+  /* box-shadow: 0px 60px 25px -20px rgba(0,0,0,0.5); */ /* Ombre optionnelle */
+  white-space: nowrap; /* Empêche le retour à la ligne des mots */
+}
+
+/* Couleur texte pour mode sombre */
+.dark .dropping-texts > div {
+  color: #FF4C54;
+}
+
+/* Application des animations avec délais */
+.dropping-texts > div:nth-child(1) { animation: roll 5s linear infinite 0s; }
+.dropping-texts > div:nth-child(2) { animation: roll 5s linear infinite 1.25s; } /* Délais ajustés */
+.dropping-texts > div:nth-child(3) { animation: roll 5s linear infinite 2.5s; }
+/* Le dernier mot utilise roll2 pour un effet différent */
+.dropping-texts > div:nth-child(4) { animation: roll2 5s linear infinite 3.75s; }
+
+
+
+.animated-card-container {
+  /* Conteneur pour positionner les éléments */
+  position: relative;
+  width: 100%; /* S'adapte à la grille Tailwind */
+  /* height: 250px; */ /* Hauteur indicative, sera définie par le contenu */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.5s;
+  /* Perspective pour l'effet 3D au survol si désiré */
+  /* perspective: 1000px; */
+}
+
+/* Fond incliné et flou */
+.animated-card-container::before,
+.animated-card-container::after {
+  content: ' ';
+  position: absolute;
+  top: 0;
+  left: 10%; /* Ajusté pour un effet moins large */
+  width: 80%; /* Ajusté */
+  height: 100%;
+  border-radius: 8px;
+  background: linear-gradient(315deg, #03a9f4, #ff0058); /* Exemple de couleur, à adapter */
+  transform: skewX(15deg);
+  transition: 0.5s;
+  z-index: 1; /* Derrière le contenu */
+}
+
+.animated-card-container::after {
+  filter: blur(20px); /* Flou ajusté */
+  opacity: 0.7; /* Opacité pour l'effet de lueur */
+   z-index: 0; /* Encore plus derrière */
+}
+
+/* Effet au survol */
+.animated-card-container:hover::before,
+.animated-card-container:hover::after {
+  transform: skewX(0deg);
+  left: 0; /* Prend toute la largeur */
+  width: 100%;
+}
+
+/* Couleurs spécifiques (optionnel, peut être géré par Tailwind) */
+/* Exemple:
+.animated-card-container.color1::before,
+.animated-card-container.color1::after { background: linear-gradient(315deg, #ffbc00, #ff0058); }
+*/
+
+/* Éléments décoratifs animés */
+.animated-card-container .decorative-span::before,
+.animated-card-container .decorative-span::after {
+  content: '';
+  position: absolute;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px); /* Flou réduit */
+  opacity: 0;
+  transition: 0.5s; /* Transition plus longue */
+  animation: card-animate 2.5s ease-in-out infinite; /* Animation plus lente */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  z-index: 3; /* Au-dessus du fond, derrière le contenu */
+}
+
+/* Animation au survol des éléments décoratifs */
+.animated-card-container:hover .decorative-span::before {
+  top: -30px; /* Moins de déplacement */
+  left: 30px;
+  width: 60px; /* Taille réduite */
+  height: 60px;
+  opacity: 1;
+}
+
+.animated-card-container:hover .decorative-span::after {
+  bottom: -30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  opacity: 1;
+}
+
+/* Keyframes pour l'animation des éléments décoratifs */
+@keyframes card-animate {
+  0%, 100% { transform: translateY(5px) scale(0.95); }
+  50% { transform: translateY(-5px) scale(1.05); }
+}
+
+/* Contenu réel de la carte */
+.animated-card-content {
+  position: relative;
+  left: 0;
+  padding: 20px; /* Padding réduit */
+  /* Fond semi-transparent pour voir l'arrière-plan */
+  background: rgba(40, 40, 40, 0.6); /* Fond sombre semi-transparent */
+  backdrop-filter: blur(8px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  z-index: 10; /* Au-dessus de tout */
+  transition: 0.5s;
+  color: #fff;
+  width: 100%; /* Prend toute la largeur */
+  height: 100%; /* Prend toute la hauteur */
+  display: flex; /* Pour aligner le contenu */
+  flex-direction: column; /* Contenu vertical */
+}
+/* Mode clair pour le contenu */
+.light .animated-card-content {
+   background: rgba(255, 255, 255, 0.7);
+   color: #1f2937; /* Texte sombre */
+}
+
+
+/* Effet au survol du contenu */
+.animated-card-container:hover .animated-card-content {
+  left: -15px; /* Moins de décalage */
+  padding: 30px 20px; /* Ajustement padding */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Styles internes au contenu (adaptés de l'exemple) */
+.animated-card-content h2 {
+  font-size: 1.5em; /* Taille ajustée */
+  color: inherit; /* Hérite la couleur */
+  margin-bottom: 10px;
+}
+
+.animated-card-content p {
+  font-size: 1em; /* Taille ajustée */
+  margin-bottom: 10px;
+  line-height: 1.4em;
+  color: inherit; /* Hérite la couleur */
+  opacity: 0.9;
+}
+
+.animated-card-content a {
+  display: inline-block;
+  font-size: 1em;
+  color: #111;
+  background: #fff;
+  padding: 8px 12px; /* Padding réduit */
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 700;
+  margin-top: auto; /* Aligne le bouton en bas */
+  align-self: flex-start; /* Aligne le bouton à gauche */
+  transition: 0.3s;
+}
+.light .animated-card-content a {
+    background: #1f2937;
+    color: #fff;
+}
+
+.animated-card-content a:hover {
+  background: #ffcf4d;
+  color: #111;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
+}
+.light .animated-card-content a:hover {
+    background: #e5b32f;
+}
+
+/* --- FIN ANIMATION CARTE --- */

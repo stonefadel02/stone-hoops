@@ -1,3 +1,4 @@
+// src/components/StandingsTable.tsx
 import { Standing } from '@/lib/api';
 import Link from 'next/link';
 
@@ -7,12 +8,12 @@ interface StandingsTableProps {
 
 const StandingsTable = ({ standings }: StandingsTableProps) => {
   return (
-    // Conteneur : fond blanc en clair, fond sombre en dark
-    <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-xl">
+    // Conteneur sombre/clair
+    <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 shadow-xl">
       <table className="min-w-full text-left text-sm whitespace-nowrap">
         
-        {/* En-tête du tableau : fond gris clair en clair, fond plus sombre en dark */}
-        <thead className="uppercase tracking-wider border-b border-gray-200 dark:border-neutral-700 bg-gray-50 dark:bg-neutral-800/50 text-gray-500 dark:text-gray-400">
+        {/* En-tête avec VOS couleurs (Rouge) */}
+        <thead className="uppercase tracking-wider border-b border-gray-300 dark:border-neutral-600 bg-[#BD343B] text-white">
           <tr>
             <th scope="col" className="px-6 py-4 font-semibold">#</th>
             <th scope="col" className="px-6 py-4 font-semibold">Équipe</th>
@@ -22,22 +23,20 @@ const StandingsTable = ({ standings }: StandingsTableProps) => {
           </tr>
         </thead>
         
-        {/* Corps du tableau : texte noir en clair, texte blanc en dark */}
+        {/* Corps du tableau */}
         <tbody className="text-neutral-900 dark:text-white">
           {standings.map((standing) => (
             <tr 
               key={standing.team_key} 
-              // Lignes avec bordures et survol adaptés aux deux modes
-              className="border-b border-gray-100 dark:border-neutral-800 transition-colors hover:bg-gray-50 dark:hover:bg-neutral-800/50"
+              className="border-b border-gray-100 dark:border-neutral-700 transition-colors hover:bg-gray-50 dark:hover:bg-neutral-700/50"
             >
-              <th scope="row" className="px-6 py-4 font-medium">
+              <th scope="row" className="px-6 py-4 font-medium text-center sm:text-left">
                 {standing.standing_place}
               </th>
               <td className="px-6 py-4">
                 <Link 
                   href={`/teams/${standing.team_key}`} 
-                  // Lien avec texte noir/blanc et survol rouge
-                  className="font-medium text-neutral-900 dark:text-white hover:text-red-500 transition-colors"
+                  className="font-medium text-neutral-900 dark:text-white hover:text-red-500 dark:hover:text-red-400 transition-colors"
                 >
                   {standing.standing_team}
                 </Link>
@@ -54,4 +53,3 @@ const StandingsTable = ({ standings }: StandingsTableProps) => {
 };
 
 export default StandingsTable;
-

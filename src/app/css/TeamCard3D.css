@@ -1,0 +1,69 @@
+/* src/app/css/TeamCard3D.css */
+
+/* Applique la perspective au conteneur de la grille */
+.perspective-container {
+  perspective: 1000px; /* Force la perspective 3D */
+  perspective-origin: center center;
+}
+
+.team-card-3d {
+  position: relative; /* Pour positionner l'image et le contenu */
+  width: 250px;
+  height: 350px;
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1); /* Transition plus douce */
+  transform-style: preserve-3d; /* Nécessaire pour les rotations 3D */
+  /* État initial incliné */
+  transform: rotatex(65deg) translatey(-150px) translatez(-100px) scale(0.9);
+  box-shadow: 0px 30px 60px rgba(0, 0, 0, 0.5); /* Ombre plus prononcée */
+  cursor: pointer;
+  border-radius: 12px; /* Ajout d'arrondi */
+  overflow: hidden; /* Cache les débordements */
+}
+
+/* Effet au survol */
+.team-card-3d:hover {
+  transform: rotatex(0deg) rotatez(0deg) translatey(0) translatez(0) scale(1); /* Remet à plat */
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3); /* Ombre plus subtile */
+}
+
+/* Image à l'intérieur de la carte */
+.team-card-3d-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60%; /* Hauteur pour l'image */
+  object-fit: contain; /* Ajuste l'image sans déformer */
+  padding: 20px; /* Marge autour de l'image */
+  transform: translatez(20px); /* Léger décalage 3D */
+  border-radius: 12px 12px 0 0;
+}
+
+/* Contenu texte */
+.team-card-3d-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40%; /* Hauteur pour le texte */
+  padding: 20px;
+  text-align: center;
+  /* Fond et couleur de texte gérés par Tailwind */
+  transform: translatez(40px); /* Léger décalage 3D */
+  border-radius: 0 0 12px 12px;
+}
+
+.team-card-3d-content h3 {
+  font-size: 1.5rem; /* 24px */
+  font-weight: 700;
+  margin-bottom: 8px;
+  /* Couleur gérée par Tailwind */
+}
+
+.team-card-3d-content p {
+  font-size: 0.875rem; /* 14px */
+  line-height: 1.4;
+  opacity: 0.8;
+  /* Couleur gérée par Tailwind */
+}

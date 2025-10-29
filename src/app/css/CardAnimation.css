@@ -1,0 +1,162 @@
+/* src/app/css/CardAnimation.css */
+
+/* Conteneur pour la grille de cartes animées */
+.card-animation-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Grille responsive */
+  gap: 60px 40px; /* Espace entre les cartes */
+  padding: 40px 0;
+  justify-items: center; /* Centre les cartes */
+}
+
+/* La carte individuelle */
+.animated-card {
+  position: relative;
+  width: 320px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.5s;
+}
+
+/* Fond incliné */
+.animated-card::before {
+  content: ' ';
+  position: absolute;
+  top: 0;
+  left: 50px;
+  width: 50%;
+  height: 100%;
+  background: var(--card-gradient, linear-gradient(315deg, #03a9f4, #ff0058)); /* Couleur par défaut */
+  border-radius: 8px;
+  transform: skewX(15deg);
+  transition: 0.5s;
+}
+
+/* Lueur inclinée (flou) */
+.animated-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50px;
+  width: 50%;
+  height: 100%;
+  background: var(--card-gradient, linear-gradient(315deg, #03a9f4, #ff0058));
+  border-radius: 8px;
+  transform: skewX(15deg);
+  transition: 0.5s;
+  filter: blur(30px);
+  opacity: 0.8;
+}
+
+/* Animation au survol */
+.animated-card:hover::before,
+.animated-card:hover::after {
+  transform: skewX(0deg);
+  left: 20px;
+  width: calc(100% - 40px);
+}
+
+/* Définition des couleurs de dégradé */
+.color-1 { --card-gradient: linear-gradient(315deg, #ffbc00, #ff0058); }
+.color-2 { --card-gradient: linear-gradient(315deg, #03a9f4, #ff0058); }
+.color-3 { --card-gradient: linear-gradient(315deg, #4dff03, #00d0ff); }
+.color-4 { --card-gradient: linear-gradient(315deg, #e91e63, #3f51b5); }
+
+/* Spans décoratifs */
+.animated-card .decorative-span {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.animated-card .decorative-span::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  transition: 0.5s; /* Augmentation de la vitesse de transition */
+  animation: card-animate 2s ease-in-out infinite;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.animated-card:hover .decorative-span::before {
+  top: -40px;
+  left: 40px;
+  width: 80px;
+  height: 80px;
+  opacity: 1;
+}
+
+.animated-card .decorative-span::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  transition: 0.5s;
+  animation: card-animate 2s ease-in-out infinite;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  animation-delay: -1s;
+}
+
+.animated-card:hover .decorative-span::after {
+  bottom: -40px;
+  right: 40px;
+  width: 80px;
+  height: 80px;
+  opacity: 1;
+}
+
+@keyframes card-animate {
+  0%, 100% { transform: translateY(10px); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Contenu de la carte */
+.animated-card-content {
+  position: relative;
+  left: 0;
+  padding: 20px 30px;
+  /* Fond verre dépoli (glassmorphism) */
+  background: rgba(40, 40, 40, 0.6); /* Fond sombre par défaut */
+  backdrop-filter: blur(10px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: 10;
+  transition: 0.5s;
+  color: #fff; /* Texte blanc par défaut */
+  width: 100%;
+}
+
+/* Mode clair pour le contenu */
+.light .animated-card-content {
+  background: rgba(255, 255, 255, 0.6); /* Fond clair */
+  color: #222; /* Texte sombre */
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  border-left: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.animated-card:hover .animated-card-content {
+  left: -20px;
+  padding: 50px 30px; /* Agrandit le padding au survol */
+}

@@ -26,7 +26,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
-          <main className="container mx-auto p-4">
+          <main className="">
             {children}
           </main>
           <Footer />

@@ -1,0 +1,89 @@
+/* Adaptation du CSS "face flip" */
+
+.player-card-flip-container {
+  position: relative;
+  width: 100%; /* S'adapte à la grille */
+  /* Hauteur définie par aspect-ratio pour maintenir la proportion */
+  aspect-ratio: 3 / 4; /* Ratio H/L commun pour cartes */
+  max-width: 250px; /* Largeur max */
+  margin: 0 auto; /* Centrer dans la grille si plus petit */
+  perspective: 1000px; /* Active la perspective 3D */
+}
+
+.player-card-flip {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  cursor: pointer;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d; /* Nécessaire pour la rotation 3D */
+}
+
+/* Les deux faces de la carte */
+.player-card-flip .face {
+  position: absolute;
+  bottom: 0; /* Alignées en bas */
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backface-visibility: hidden; /* Cache la face arrière */
+  border-radius: 15px;
+  overflow: hidden; /* Cache les dépassements */
+}
+
+/* Face 1: Contenu (Nom, Date, Drapeau) - Cachée au début */
+.player-card-flip .face.face1 {
+  box-sizing: border-box;
+  padding: 20px;
+  /* Fond mode clair */
+  background: #f1f1f1;
+  /* Rotation initiale pour être cachée */
+  transform: rotateY(180deg);
+  z-index: 1; /* Derrière face2 */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Aligne le contenu en bas */
+  align-items: center;
+  text-align: center;
+}
+/* Mode sombre pour Face 1 */
+.dark .player-card-flip .face.face1 {
+  background: #262626;
+}
+
+.player-card-flip .face.face1 h3 {
+  margin: 0 0 5px 0;
+  padding: 0;
+  font-size: 1.25rem; /* ~20px */
+  font-weight: 600;
+  /* Couleur gérée par Tailwind dans le composant */
+}
+.player-card-flip .face.face1 p {
+  margin: 0;
+  padding: 0;
+  font-size: 0.875rem; /* 14px */
+  /* Couleur gérée par Tailwind */
+}
+
+/* Face 2: Image du joueur - Visible au début */
+.player-card-flip .face.face2 {
+  /* Fond mode clair (pour fallback) */
+  background: #e0e0e0;
+  transition: 0.5s;
+  z-index: 2; /* Devant face1 */
+  transform: rotateY(0deg); /* Position initiale */
+}
+/* Mode sombre pour Face 2 */
+.dark .player-card-flip .face.face2 {
+   background: #333;
+}
+
+/* Effet au survol: Rotation */
+.player-card-flip-container:hover .player-card-flip {
+  transform: rotateY(180deg);
+}
