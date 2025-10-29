@@ -2,7 +2,6 @@
 
 import { Game } from '@/lib/api'; // Utilise l'interface Game de votre ancienne API
 import Image from 'next/image';
-import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import '../app/css/CardAnimation.css'; // Importe le nouveau CSS
 
