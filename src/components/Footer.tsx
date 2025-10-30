@@ -1,45 +1,45 @@
 import Link from 'next/link';
 
-// Données pour les liens, faciles à modifier
+// Données pour les liens, traduites en français
 const footerLinks = [
   {
-    title: "NBA Organization",
+    title: "Organisation Stone Hoops",
     links: [
-      { label: "NBA Official", href: "#" },
-      { label: "NBA Careers", href: "#" },
+      { label: "Site Officiel", href: "#" },
+      { label: "Carrières", href: "#" },
     ]
   },
   {
-    title: "NBA Initiatives",
+    title: "Nos Initiatives",
     links: [
-      { label: "NBA Cares", href: "#" },
-      { label: "Jr. NBA", href: "#" },
-      { label: "NBA Foundation", href: "#" },
-      { label: "Social Justice Coalition", href: "#" },
+      { label: "Engagements", href: "#" },
+      { label: "Jr. Hoops", href: "#" }, // Adapté de "Jr. NBA"
+      { label: "Fondation Stone Hoops", href: "#" },
+      { label: "Justice Sociale", href: "#" },
     ]
   },
   {
-    title: "Across The League",
+    title: "À Travers la Ligue",
     links: [
-      { label: "NBA Communications", href: "#" },
-      { label: "Lockervision", href: "#" },
-      { label: "NBA Transactions", href: "#" },
+      { label: "Communications", href: "#" },
+      { label: "Lockervision", href: "#" }, // Gardé comme nom propre
+      { label: "Transactions", href: "#" },
     ]
   },
   {
-    title: "Shop",
+    title: "Boutique",
     links: [
-      { label: "Global Stores", href: "#" },
-      { label: "NYC Store", href: "#" },
-      { label: "NBA Auctions", href: "#" },
-      { label: "NBA Photostore", href: "#" },
+      { label: "Boutiques Internationales", href: "#" },
+      { label: "Boutique NYC", href: "#" },
+      { label: "Enchères", href: "#" },
+      { label: "Boutique Photos", href: "#" },
     ]
   },
 ];
 
 const Footer = () => {
   return (
-    <footer className="bg-black mt-20 text-gray-400 pt-16 pb-8">
+    <footer className="bg-black text-gray-400 pt-16 pb-8">
       <div className="container mx-auto px-6">
         <div className="flex flex-wrap justify-between">
 
